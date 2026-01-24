@@ -1,0 +1,262 @@
+.about-exhibition {
+    position: relative;
+    padding: 5vh 0 2vh 0;
+    /* Minimized bottom padding */
+    background-color: var(--color-noir);
+    overflow: hidden;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.about-intro {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 4vh;
+    /* Reduced from 8vh for tighter flow */
+    padding: 0 6rem;
+}
+
+.about-header {
+    font-family: var(--font-serif);
+    font-size: 8vw;
+    letter-spacing: 1.5rem;
+    color: var(--color-gold);
+    text-transform: uppercase;
+    opacity: 0.9;
+    margin: 0;
+}
+
+.about-pulp-row {
+    display: flex;
+    align-items: center;
+    gap: 8vw;
+    padding: 0 6rem;
+    width: 100%;
+    z-index: 10;
+    flex-wrap: nowrap;
+    /* Force horizontal flow */
+}
+
+.about-marker-cell {
+    width: 100px;
+    flex-shrink: 0;
+}
+
+.about-chapter-marker {
+    display: flex;
+    flex-direction: column;
+    /* Vertical marker for the start */
+    align-items: center;
+    gap: 2rem;
+}
+
+.about-chapter-marker .tag-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+}
+
+.about-title-cell {
+    flex: 1.5;
+    min-width: 40vw;
+}
+
+.about-massive-title {
+    font-family: var(--font-serif);
+    font-size: 7vw;
+    line-height: 0.9;
+    letter-spacing: -4px;
+    margin: 0;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.about-massive-title .shifted {
+    padding-left: 4vw;
+    font-style: italic;
+    opacity: 0.7;
+}
+
+.about-narrative-cell {
+    flex: 1;
+    min-width: 400px;
+}
+
+.about-narrative {
+    max-width: 400px;
+}
+
+.narrative-lead {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    line-height: 1.4;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    color: var(--color-white);
+}
+
+.narrative-body {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+}
+
+.about-discover-btn {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    color: var(--color-gold);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: all 0.4s ease;
+}
+
+.btn-line {
+    width: 60px;
+    height: 1px;
+    background-color: var(--color-gold);
+    transition: width 0.4s ease;
+}
+
+.about-discover-btn:hover .btn-line {
+    width: 120px;
+}
+
+/* Lens Visual */
+.about-visual-cell {
+    flex: 1.2;
+    min-width: 500px;
+}
+
+.lens-exhibit-container {
+    width: 100%;
+    position: relative;
+    max-width: 700px;
+    /* Increased for row balance */
+    transition: transform 0.1s linear;
+}
+
+.lens-floating-card {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background: #111;
+    border: 12px solid #ffffff;
+    border-radius: 4px;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8);
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.lens-image-exhibit {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.8) contrast(1.1);
+}
+
+.lens-label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    opacity: 0.4;
+}
+
+.label-code {
+    font-family: var(--font-sans);
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+}
+
+.label-text {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+.about-bg-accent {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.bg-text-vertical {
+    font-family: var(--font-sans);
+    font-size: 15vh;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.02);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    white-space: nowrap;
+}
+
+@media (max-width: 1024px) {
+    .about-pulp-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4rem;
+        padding: 0 2rem;
+    }
+
+    .about-marker-cell {
+        width: 100%;
+    }
+
+    .about-chapter-marker {
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .about-chapter-marker .tag-text {
+        writing-mode: horizontal-tb;
+        transform: none;
+    }
+
+    .about-title-cell,
+    .about-narrative-cell,
+    .about-visual-cell {
+        min-width: 100%;
+    }
+
+    .about-massive-title {
+        font-size: 12vw;
+        line-height: 1;
+    }
+
+    .narrative-lead {
+        font-size: 1.3rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .about-visual-cell {
+        padding-top: 2rem;
+    }
+
+    .bg-text-vertical {
+        font-size: 10vh;
+        right: -5vh;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-header {
+        font-size: 12vw;
+        letter-spacing: 0.5rem;
+    }
+
+    .about-massive-title {
+        font-size: 15vw;
+    }
+
+    .narrative-body {
+        font-size: 0.95rem;
+    }
+}

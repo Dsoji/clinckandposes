@@ -1,0 +1,135 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 2.5rem 4rem;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  background: transparent;
+}
+
+.header.scrolled {
+  padding: 1.5rem 4rem;
+  background: rgba(3, 3, 3, 0.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.header-container {
+  max-width: 1600px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.header-logo-img {
+  height: 5.5rem;
+  /* Increased size for a bolder brand presence */
+  width: auto;
+  object-fit: contain;
+  filter: brightness(1.1) contrast(1.1);
+  /* Ensures high pop */
+  transition: transform 0.4s ease;
+}
+
+.logo-link:hover .header-logo-img {
+  transform: scale(1.05);
+}
+
+.header-label {
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  letter-spacing: 4px;
+  color: var(--color-gold);
+  font-weight: 500;
+}
+
+.header-nav {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 3rem;
+}
+
+.nav-links a {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.nav-links a:hover {
+  color: var(--color-white);
+  opacity: 1;
+}
+
+.book-btn {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  padding: 0.8rem 1.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50px;
+  transition: all 0.4s ease;
+}
+
+.book-btn:hover {
+  background: var(--color-white);
+  color: var(--color-noir);
+  border-color: var(--color-white);
+}
+
+@media (max-width: 1024px) {
+  .header {
+    padding: 1.5rem 2rem;
+  }
+
+  .header.scrolled {
+    padding: 1rem 2rem;
+  }
+
+  .header-nav {
+    display: none;
+  }
+
+  .logo-text {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 1rem 1.5rem;
+  }
+
+  .logo-text {
+    font-size: 1rem;
+    letter-spacing: 1px;
+  }
+
+  .book-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.65rem;
+  }
+}
