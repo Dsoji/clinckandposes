@@ -25,9 +25,10 @@ const PortfolioSection = ({ id, index, title, subtitle, description, mainImage, 
             <div className="portfolio-bg">
                 <div className="mask-wrapper" style={{ clipPath: `inset(${(1 - scrollProgress) * 20}% 0% 0% 0%)` }}>
                     <img
-                        src={mainImage}
+                        src={typeof mainImage === 'string' && mainImage.includes('unsplash') ? `${mainImage}&w=1600` : mainImage}
                         alt={title}
                         className="parallax-bg"
+                        loading="lazy"
                         style={{ transform: `scale(${1.1 + scrollProgress * 0.1}) translateY(${(scrollProgress - 0.5) * 100}px)` }}
                     />
                 </div>
@@ -53,7 +54,11 @@ const PortfolioSection = ({ id, index, title, subtitle, description, mainImage, 
                         <div className="slideshow-track">
                             {galleryImages.concat(galleryImages).map((img, i) => (
                                 <div key={i} className="floating-card">
-                                    <img src={img} alt={`${title} Detail`} />
+                                    <img
+                                        src={typeof img === 'string' && img.includes('unsplash') ? `${img}&w=600` : img}
+                                        alt={`${title} Detail`}
+                                        loading="lazy"
+                                    />
                                 </div>
                             ))}
                         </div>

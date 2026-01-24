@@ -56,7 +56,11 @@ const Hero = () => {
                                     transform: `rotate(${print.rot}) translateY(${(0.5 - scrollProgress) * (40 * (i + 1))}px)`
                                 }}
                             >
-                                <img src={print.img} alt="Featured Print" />
+                                <img
+                                    src={print.img.includes('unsplash') ? `${print.img}&w=500` : print.img}
+                                    alt="Featured Print"
+                                    loading="lazy"
+                                />
                             </div>
                         ))}
                     </div>

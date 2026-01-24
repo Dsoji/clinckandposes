@@ -57,7 +57,12 @@ const About = () => {
                 <div className="about-visual-cell">
                     <div className="lens-exhibit-container" style={{ transform: `rotate(${(scrollProgress - 0.5) * 10}deg)` }}>
                         <div className="lens-floating-card">
-                            <img src={aboutLens} alt="CLICK & POSES Master Logo" className="lens-image-exhibit" />
+                            <img
+                                src={aboutLens}
+                                alt="CLICK & POSES Master Logo"
+                                className="lens-image-exhibit"
+                                loading="lazy"
+                            />
                         </div>
                     </div>
                 </div>

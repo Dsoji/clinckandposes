@@ -69,7 +69,12 @@ const Reviews = () => {
                             className={`review-slide ${index === activeIndex ? 'active' : ''}`}
                         >
                             <div className="review-image-wrapper">
-                                <img src={review.image} alt={review.client} className="review-image" />
+                                <img
+                                    src={`${review.image}&w=800`}
+                                    alt={review.client}
+                                    className="review-image"
+                                    loading="lazy"
+                                />
                                 <div className="review-image-overlay"></div>
                             </div>
 
