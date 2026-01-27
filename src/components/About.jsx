@@ -26,14 +26,14 @@ const About = () => {
                 <div className="about-marker-cell">
                     <div className="about-chapter-marker">
                         <span className="line-dec"></span>
-                        <span className="tag-text">02 // STUDIO</span>
+                        <span className="tag-text">08 // STUDIO</span>
                     </div>
                 </div>
 
                 <div className="about-title-cell">
                     <h2 className="about-massive-title" style={{ transform: `translateX(${(scrollProgress - 0.5) * 30}px)` }}>
-                        THE ART<br />
-                        <span className="shifted">OF VISION</span>
+                        OUR <br />
+                        <span className="shifted">VISION</span>
                     </h2>
                 </div>
 
@@ -47,10 +47,7 @@ const About = () => {
                             Our team, led by Graphic Smith, is dedicated to capturing the essence of each moment.
                             We don't just take pictures; we create visual experiences that resonate.
                         </p>
-                        <button className="about-discover-btn">
-                            LEARN MORE
-                            <span className="btn-line"></span>
-                        </button>
+
                     </div>
                 </div>
 

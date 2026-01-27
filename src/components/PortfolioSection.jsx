@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './PortfolioSection.css';
 
-const PortfolioSection = ({ id, index, title, subtitle, description, mainImage, galleryImages, theme, showDivider = true }) => {
+const PortfolioSection = ({ id, index, title, subtitle, description, mainImage, galleryImages, theme, bookingUrl, showDivider = true }) => {
     const sectionRef = useRef(null);
     const [scrollProgress, setScrollProgress] = useState(0);
 
@@ -49,6 +49,15 @@ const PortfolioSection = ({ id, index, title, subtitle, description, mainImage, 
 
                 <div className="portfolio-details">
                     <p className="portfolio-description">{description}</p>
+
+                    {bookingUrl && (
+                        <div className="portfolio-cta">
+                            <a href={bookingUrl} target="_blank" rel="noopener noreferrer" className="book-now-btn">
+                                BOOK THIS SERVICE
+                                <span className="btn-line"></span>
+                            </a>
+                        </div>
+                    )}
 
                     <div className="floating-slideshow-wrapper" style={{ transform: `translateY(${(scrollProgress - 0.5) * 50}px)` }}>
                         <div className="slideshow-track">

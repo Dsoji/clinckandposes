@@ -1,167 +1,209 @@
-.contact-section {
-    position: relative;
-    padding: 15vh 0 5vh 0;
+.contact-studio {
     background-color: var(--color-noir);
-    overflow: hidden;
-    min-height: 80vh;
+    min-height: 100vh;
+    padding: 2vh 0 5vh 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    color: var(--color-white);
 }
 
-.contact-container {
-    max-width: 1600px;
+.contact-studio-container {
+    max-width: 1400px;
+    width: 90%;
     margin: 0 auto;
-    padding: 0 6rem;
-}
-
-.contact-header {
-    margin-bottom: 8vh;
-}
-
-.contact-massive-title {
-    font-family: var(--font-serif);
-    font-size: 8vw;
-    line-height: 1;
-    letter-spacing: -4px;
-}
-
-.contact-massive-title .italic {
-    font-style: italic;
-    opacity: 0.7;
-    padding-left: 5vw;
-}
-
-.contact-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10rem;
-    margin-top: 5vh;
+    gap: 5rem;
+    align-items: center;
+    flex: 1;
 }
 
-.info-block {
-    margin-bottom: 4rem;
-}
-
-.info-label {
-    display: block;
-    font-family: var(--font-sans);
-    font-size: 0.7rem;
-    letter-spacing: 3px;
-    color: var(--color-gold);
-    margin-bottom: 1rem;
-}
-
-.info-link {
-    font-family: var(--font-serif);
-    font-size: 2rem;
-    font-weight: 500;
-    transition: opacity 0.3s ease;
-}
-
-.info-text {
-    font-family: var(--font-sans);
-    font-size: 1.1rem;
-    font-weight: 500;
-    line-height: 1.8;
-    color: rgba(255, 255, 255, 0.8);
-}
-
-.social-links {
+/* Left Side - Visual */
+.contact-visual-side {
     display: flex;
-    gap: 3rem;
-    margin-top: 6rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
 }
 
-.social-links a {
+.studio-contact-header {
+    font-family: var(--font-serif);
+    font-size: 5vw;
+    font-weight: 500;
+    letter-spacing: 0.5rem;
+    color: var(--color-gold);
+    opacity: 0.9;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.studio-logo-circle {
+    width: 500px;
+    height: 500px;
+    background-color: #0b0b0b;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+}
+
+.studio-circle-logo-img {
+    width: 220px;
+    height: auto;
+    margin-bottom: 2rem;
+}
+
+.studio-brand-name {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    letter-spacing: 0.6rem;
+    font-weight: 500;
+    opacity: 0.6;
+    text-transform: uppercase;
+}
+
+/* Right Side - Form */
+.contact-form-side {
+    display: flex;
+    justify-content: center;
+}
+
+.studio-form {
+    width: 100%;
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-group label {
     font-family: var(--font-sans);
     font-size: 0.75rem;
+    letter-spacing: 3px;
     font-weight: 600;
-    letter-spacing: 2px;
-}
-
-.contact-cta {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-}
-
-.cta-description {
-    font-family: var(--font-sans);
-    font-size: 1.4rem;
-    line-height: 1.6;
-    font-weight: 500;
-    color: var(--color-white);
-    margin-bottom: 4rem;
-}
-
-.contact-book-btn {
-    font-family: var(--font-sans);
-    font-size: 0.8rem;
-    letter-spacing: 4px;
     color: var(--color-gold);
+    opacity: 0.8;
+}
+
+.form-group input,
+.form-group textarea {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.2rem;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    color: white;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--color-gold);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.studio-send-btn {
+    align-self: flex-start;
+    background: none;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    padding: 1.2rem 3rem;
+    border-radius: 50px;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    font-weight: 600;
+    color: var(--color-gold);
+    transition: all 0.4s ease;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.studio-send-btn:hover {
+    border-color: var(--color-gold);
+    background-color: rgba(212, 175, 55, 0.05);
+    transform: translateY(-3px);
+}
+
+/* Footer Note */
+.studio-footer-note {
+    width: 100%;
+    padding: 10vh 6rem 2rem 6rem;
+    text-align: left;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    align-items: flex-start;
+    gap: 6rem;
 }
 
-.btn-line {
-    width: 80px;
-    height: 1px;
-    background-color: var(--color-gold);
-    transition: width 0.4s ease;
+.studio-footer-note p {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.4);
+    max-width: 450px;
+    font-style: italic;
 }
 
-.contact-book-btn:hover .btn-line {
-    width: 150px;
-}
-
-.footer-mini {
-    margin-top: 15vh;
-    padding: 2rem 6rem;
-    display: flex;
-    justify-content: space-between;
+.powered-by {
     font-family: var(--font-sans);
-    font-size: 11px;
-    letter-spacing: 2px;
-    opacity: 0.3;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--color-white);
+    align-self: center;
+    text-transform: uppercase;
+    opacity: 0.2;
 }
 
+/* Responsive */
 @media (max-width: 1024px) {
-    .contact-grid {
+    .contact-studio-container {
         grid-template-columns: 1fr;
         gap: 6rem;
+        padding-top: 5vh;
     }
 
-    .contact-container {
-        padding: 0 2rem;
+    .studio-logo-circle {
+        width: 380px;
+        height: 380px;
     }
 
-    .contact-massive-title {
-        font-size: 12vw;
+    .studio-circle-logo-img {
+        width: 180px;
     }
 
-    .info-link {
-        font-size: 1.5rem;
-    }
-
-    .footer-mini {
-        padding: 2rem;
-        flex-direction: column;
-        gap: 1.5rem;
+    .studio-footer-note {
+        padding: 5vh 2rem 2rem 2rem;
         text-align: center;
+        align-items: center;
     }
 }
 
 @media (max-width: 480px) {
-    .contact-massive-title {
-        font-size: 15vw;
+    .studio-logo-circle {
+        width: 300px;
+        height: 300px;
     }
 
-    .cta-description {
-        font-size: 1.1rem;
+    .studio-brand-name {
+        font-size: 0.7rem;
+        letter-spacing: 0.4rem;
     }
 
-    .social-links {
-        gap: 1.5rem;
-        flex-wrap: wrap;
+    .studio-footer-note p {
+        font-size: 0.9rem;
     }
 }

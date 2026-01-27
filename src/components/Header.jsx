@@ -26,15 +26,18 @@ const Header = () => {
         <nav className="header-nav">
           <ul className="nav-links">
             <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#wedding">Services</a></li>
+            <li><a href="#wedding">Wedding</a></li>
+            <li><a href="#photobooth">Photobooth</a></li>
             <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact Us</a></li>
           </ul>
         </nav>
 
         <div className="header-right">
-          <button className="book-btn">BOOK A SERVICE</button>
+          <a href="https://clicksandposes01.pixieset.com/booking" target="_blank" rel="noopener noreferrer" className="book-btn-link">
+            <button className="book-btn">BOOK A SERVICE</button>
+          </a>
         </div>
       </div>
     </header>

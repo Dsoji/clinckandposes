@@ -13,12 +13,13 @@ const Portraits = () => {
     return (
         <PortfolioSection
             id="portraits"
-            index="05 // PORTRAITS"
+            index="06 // PORTRAITS"
             title="EDITORIAL PORTRAITS"
             subtitle="The Human Canvas"
             description="A deep dive into character and soul. Our portraiture session uses light to reveal the unseen facets of your personal brand."
             mainImage={personal1}
             galleryImages={images}
+            bookingUrl="https://clicksandposes01.pixieset.com/booking/headshot"
             theme="dark-editorial"
             showDivider={true}
         />

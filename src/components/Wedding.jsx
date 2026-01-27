@@ -20,6 +20,7 @@ const Wedding = () => {
             description="Capturing the silent whispers and grand declarations of love. Our wedding photography is a professional exploration of your most sacred day."
             mainImage={wedding1}
             galleryImages={images}
+            bookingUrl="https://clicksandposes01.pixieset.com/booking"
             theme="light-text"
             showDivider={true}
         />

@@ -1,9 +1,9 @@
 .about-exhibition {
     position: relative;
-    padding: 5vh 0 5vh 0;
+    padding: 5vh 0 2vh 0;
     background-color: var(--color-noir);
     overflow: hidden;
-    min-height: 100vh;
+    min-height: 80vh;
     display: flex;
     flex-direction: column;
     /* Stack children vertically */

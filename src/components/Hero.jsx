@@ -42,7 +42,12 @@ const Hero = () => {
                 </div>
                 <div className="hero-overlay-noir"></div>
 
-                <div className="hero-watermark">CLICK & POSES</div>
+                <div
+                    className="hero-watermark"
+                    style={{ transform: `translate(-50%, calc(-50% + ${scrollProgress * 150}px))` }}
+                >
+                    CLICK & POSES
+                </div>
 
                 <div className="hero-content-editorial">
                     <div className="hero-floating-prints">

@@ -19,6 +19,7 @@ const Events = () => {
             description="Beyond cakes and candles, we document the energy of life passing through time. Professional coverage for birthdays and corporate events."
             mainImage={birthday1}
             galleryImages={images}
+            bookingUrl="https://clicksandposes01.pixieset.com/booking/events"
             theme="gold-accent"
             showDivider={true}
         />

@@ -114,6 +114,44 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.portfolio-cta {
+    margin-top: 1rem;
+    z-index: 20;
+}
+
+.book-now-btn {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 4px;
+    color: var(--color-gold);
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    padding: 1rem 2rem;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 50px;
+}
+
+.book-now-btn .btn-line {
+    width: 40px;
+    height: 1px;
+    background-color: var(--color-gold);
+    transition: width 0.4s ease;
+}
+
+.book-now-btn:hover {
+    background-color: rgba(212, 175, 55, 0.05);
+    border-color: var(--color-gold);
+    transform: translateY(-5px);
+}
+
+.book-now-btn:hover .btn-line {
+    width: 80px;
+}
+
 /* Floating Slideshow */
 .floating-slideshow-wrapper {
     overflow: hidden;
@@ -145,7 +183,7 @@
 }
 
 .floating-card {
-    width: 380px;
+    width: auto;
     height: 500px;
     border-radius: 4px;
     overflow: hidden;
@@ -163,9 +201,9 @@
 }
 
 .floating-card img {
-    width: 100%;
+    width: auto;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     filter: brightness(0.9) contrast(1.1);
 }
 

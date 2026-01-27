@@ -57,7 +57,7 @@ const Reviews = () => {
                 <div className="reviews-header">
                     <div className="hero-chapter-tag">
                         <span className="line-dec"></span>
-                        <span className="tag-text">06 // REVIEWS</span>
+                        <span className="tag-text">07 // REVIEWS</span>
                     </div>
                     <h2 className="reviews-title-mini">VOICES OF EXPERIENCE</h2>
                 </div>
