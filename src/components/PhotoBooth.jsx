@@ -12,7 +12,7 @@ const PhotoBooth = () => {
     return (
         <PortfolioSection
             id="photobooth"
-            index="05 // PHOTOBOOTH"
+            index="06 // RENTAL"
             title="PHOTOBOOTH RENTAL"
             subtitle="The Ultimate Party Essential"
             description="Elevate your events with our premium photobooth experience. From unlimited high-quality prints to instant social sharing and custom backdrops, we provide the perfect mix of fun and professional photography."

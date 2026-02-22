@@ -61,8 +61,7 @@
 }
 
 .portfolio-header {
-    margin-bottom: 4vh;
-    /* Reduced from 8vh for tighter flow */
+    margin-bottom: 2vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -71,26 +70,26 @@
 
 .portfolio-header .hero-chapter-tag {
     justify-content: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .portfolio-title-large {
     font-family: var(--font-serif);
-    font-size: 10vw;
+    font-size: 6vw;
     font-weight: 400;
-    letter-spacing: -4px;
-    line-height: 0.9;
+    letter-spacing: -2px;
+    line-height: 1;
     margin: 0;
     text-transform: uppercase;
 }
 
 .portfolio-subtitle {
     font-family: var(--font-serif);
-    font-size: 3vw;
+    font-size: 1.8vw;
     font-style: italic;
     font-weight: 400;
     color: rgba(255, 255, 255, 0.7);
-    margin: 1.5rem 0 0 0;
+    margin: 1rem 0 0 0;
 }
 
 .portfolio-details {
@@ -242,11 +241,11 @@
     }
 
     .portfolio-title-large {
-        font-size: 12vw;
+        font-size: 8vw;
     }
 
     .portfolio-subtitle {
-        font-size: 5vw;
+        font-size: 2.5vw;
     }
 }
 

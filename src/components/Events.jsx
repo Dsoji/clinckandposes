@@ -13,7 +13,7 @@ const Events = () => {
     return (
         <PortfolioSection
             id="events"
-            index="04 // EVENTS"
+            index="04 // PORTFOLIO"
             title="EVENT COLLECTIONS"
             subtitle="Milestones in Motion"
             description="Beyond cakes and candles, we document the energy of life passing through time. Professional coverage for birthdays and corporate events."

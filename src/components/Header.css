@@ -34,11 +34,12 @@
   display: flex;
   align-items: center;
   height: 100%;
+  gap: 1.5rem;
 }
 
 .header-logo-img {
-  height: 5.5rem;
-  /* Increased size for a bolder brand presence */
+  height: 5rem;
+  /* Slightly adjusted size */
   width: auto;
   object-fit: contain;
   filter: brightness(1.1) contrast(1.1);
@@ -50,12 +51,24 @@
   transform: scale(1.05);
 }
 
+.logo-text {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  letter-spacing: 2px;
+  color: var(--color-white);
+  text-transform: uppercase;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
 .header-label {
   font-family: var(--font-sans);
   font-size: 0.6rem;
   letter-spacing: 4px;
   color: var(--color-gold);
   font-weight: 500;
+  margin-left: 6.5rem;
+  /* Align under text */
 }
 
 .header-nav {

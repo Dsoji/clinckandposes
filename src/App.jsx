@@ -1,10 +1,8 @@
 import Header from './components/Header'
 import Hero from './components/Hero'
 import About from './components/About'
-import Wedding from './components/Wedding'
-import Events from './components/Events'
+import Portfolio from './components/Portfolio'
 import PhotoBooth from './components/PhotoBooth'
-import Portraits from './components/Portraits'
 import Reviews from './components/Reviews'
 import Contact from './components/Contact'
 import './App.css'
@@ -14,10 +12,8 @@ function App() {
     <div className="app-container">
       <Header />
       <Hero />
-      <Wedding />
-      <Events />
+      <Portfolio />
       <PhotoBooth />
-      <Portraits />
       <Reviews />
       <About />
       <Contact />

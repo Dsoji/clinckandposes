@@ -14,7 +14,7 @@ const Wedding = () => {
     return (
         <PortfolioSection
             id="wedding"
-            index="03 // WEDDING"
+            index="03 // PORTFOLIO"
             title="WEDDING PORTFOLIO"
             subtitle="The Eternal Vow"
             description="Capturing the silent whispers and grand declarations of love. Our wedding photography is a professional exploration of your most sacred day."

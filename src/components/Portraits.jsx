@@ -13,7 +13,7 @@ const Portraits = () => {
     return (
         <PortfolioSection
             id="portraits"
-            index="06 // PORTRAITS"
+            index="05 // PORTFOLIO"
             title="EDITORIAL PORTRAITS"
             subtitle="The Human Canvas"
             description="A deep dive into character and soul. Our portraiture session uses light to reveal the unseen facets of your personal brand."
