@@ -300,6 +300,10 @@
 }
 
 @media (max-width: 480px) {
+    .hero-content-editorial {
+        padding: 22vh 1.5rem 0 1.5rem;
+    }
+
     .title-row {
         font-size: 9vw;
         letter-spacing: -2px;
@@ -316,5 +320,9 @@
 
     .hero-chapter-tag {
         margin-bottom: 1.5rem;
+    }
+
+    .hero-watermark {
+        font-size: 15vw;
     }
 }

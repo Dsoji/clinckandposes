@@ -19,14 +19,12 @@ const Header = () => {
         <div className="header-left">
           <a href="#home" className="logo-link">
             <img src={logo} alt="CLICK & POSES Logo" className="header-logo-img" />
-            <span className="logo-text">CLICK AND POSES</span>
+            <span className="logo-text">CLICK & POSES</span>
           </a>
-          <span className="header-label">EST. PORTFOLIO</span>
         </div>
 
         <nav className="header-nav">
           <ul className="nav-links">
-            <li><a href="#home">Home</a></li>
             <li><a href="#portfolio">Portfolio</a></li>
             <li><a href="#photobooth">Photobooth</a></li>
             <li><a href="#reviews">Reviews</a></li>
