@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { fetchSectionData } from '../services/portfolioService';
 import './Hero.css';
 import homeBackground from '../assets/home_background.jpg';
 import wedding1 from '../assets/wedding_1.png';
@@ -8,6 +9,13 @@ import personal1 from '../assets/personal_1.png';
 const Hero = () => {
     const sectionRef = useRef(null);
     const [scrollProgress, setScrollProgress] = useState(0);
+    const [heroData, setHeroData] = useState({
+        titleRow1: 'CLICK & POSES',
+        titleRow2: 'CAPTURING MOMENTS',
+        tagline: 'A premium collection of commercial and personal photography.\nCrafting timeless narratives through the lens of precision.',
+        chapterTag: '01 // HOME',
+        scrollText: 'DISCOVER THE WORK',
+    });
 
     useEffect(() => {
         const handleScroll = () => {
@@ -20,6 +28,18 @@ const Hero = () => {
 
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    useEffect(() => {
+        const loadMetadata = async () => {
+            try {
+                const data = await fetchSectionData('hero');
+                if (data) setHeroData(data);
+            } catch (err) {
+                console.error("Failed to load hero metadata:", err);
+            }
+        };
+        loadMetadata();
     }, []);
 
     const featuredPrints = [
@@ -46,7 +66,7 @@ const Hero = () => {
                     className="hero-watermark"
                     style={{ transform: `translate(-50%, calc(-50% + ${scrollProgress * 150}px))` }}
                 >
-                    CLICK & POSES
+                    {heroData.titleRow1}
                 </div>
 
                 <div className="hero-content-editorial">
@@ -73,23 +93,22 @@ const Hero = () => {
                     <div className="hero-main-narrative">
                         <div className="hero-chapter-tag">
                             <span className="line-dec"></span>
-                            <span className="tag-text">01 // HOME</span>
+                            <span className="tag-text">{heroData.chapterTag}</span>
                         </div>
 
                         <h1 className="hero-massive-title">
-                            <span className="title-row">CLICK & POSES</span>
-                            <span className="title-row accent">CAPTURING MOMENTS</span>
+                            <span className="title-row">{heroData.titleRow1}</span>
+                            <span className="title-row accent">{heroData.titleRow2}</span>
                         </h1>
                     </div>
 
                     <div className="hero-editorial-footer">
-                        <p className="hero-short-dec">
-                            A premium collection of commercial and personal photography. <br />
-                            Crafting timeless narratives through the lens of precision.
+                        <p className="hero-short-dec" style={{ whiteSpace: 'pre-line' }}>
+                            {heroData.tagline}
                         </p>
                         <div className="hero-scroll-invite">
                             <span className="arrow-down">↓</span>
-                            <span className="invite-text">DISCOVER THE WORK</span>
+                            <span className="invite-text">{heroData.scrollText}</span>
                         </div>
                     </div>
                 </div>

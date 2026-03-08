@@ -1,0 +1,12 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Allow any user to read images globally so they load on the public site
+    match /{allPaths=**} {
+      allow read: if true;
+      // Allow only authenticated admin users to upload/modify images
+      allow write: if request.auth != null;
+    }
+  }
+}

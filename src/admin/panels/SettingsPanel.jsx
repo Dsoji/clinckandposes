@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { fetchSectionData, saveSectionData } from '../../services/portfolioService';
 
 const defaultSettings = {
     brandName: 'CLICK & POSES',
@@ -12,23 +13,45 @@ const defaultSettings = {
 };
 
 const SettingsPanel = () => {
-    const [settings, setSettings] = useState(() => {
-        const saved = localStorage.getItem('cp_settings_data');
-        return saved ? JSON.parse(saved) : defaultSettings;
-    });
+    const [settings, setSettings] = useState(defaultSettings);
+    const [loading, setLoading] = useState(true);
+    const [saving, setSaving] = useState(false);
+
+    useEffect(() => {
+        const loadSettings = async () => {
+            try {
+                const data = await fetchSectionData('settings');
+                if (data) setSettings(data);
+            } catch (err) {
+                console.error("Failed to load settings:", err);
+            } finally {
+                setLoading(false);
+            }
+        };
+        loadSettings();
+    }, []);
 
     const handleChange = (field, value) => {
         setSettings(prev => ({ ...prev, [field]: value }));
     };
 
-    const handleSave = () => {
-        localStorage.setItem('cp_settings_data', JSON.stringify(settings));
-        alert('Settings saved!');
+    const handleSave = async () => {
+        setSaving(true);
+        try {
+            await saveSectionData('settings', settings);
+            alert('Settings saved to Firebase!');
+        } catch (err) {
+            console.error("Failed to save settings:", err);
+            alert('Failed to save. Check permissions.');
+        } finally {
+            setSaving(false);
+        }
     };
 
     const handleReset = () => {
-        setSettings(defaultSettings);
-        localStorage.removeItem('cp_settings_data');
+        if (confirm('Are you sure you want to reset all site settings to their defaults?')) {
+            setSettings(defaultSettings);
+        }
     };
 
     return (
@@ -37,9 +60,12 @@ const SettingsPanel = () => {
                 <p className="panel-description">
                     Configure site-wide text and branding settings.
                 </p>
-                <div style={{ display: 'flex', gap: '1rem' }}>
+                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                    {loading && <span style={{ color: 'var(--gold)' }}>Loading...</span>}
                     <button className="admin-btn admin-btn-ghost" onClick={handleReset}>Reset Defaults</button>
-                    <button className="admin-btn admin-btn-primary" onClick={handleSave}>Save Settings</button>
+                    <button className="admin-btn admin-btn-primary" onClick={handleSave} disabled={saving || loading}>
+                        {saving ? 'Saving...' : 'Save Settings'}
+                    </button>
                 </div>
             </div>
 

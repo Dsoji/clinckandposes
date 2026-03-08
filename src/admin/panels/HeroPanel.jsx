@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { fetchSectionData, saveSectionData } from '../../services/portfolioService';
 
 const defaultHeroData = {
     titleRow1: 'CLICK & POSES',
@@ -7,25 +8,44 @@ const defaultHeroData = {
     chapterTag: '01 // HOME',
     scrollText: 'DISCOVER THE WORK',
 };
-
 const HeroPanel = () => {
-    const [heroData, setHeroData] = useState(() => {
-        const saved = localStorage.getItem('cp_hero_data');
-        return saved ? JSON.parse(saved) : defaultHeroData;
-    });
+    const [heroData, setHeroData] = useState(defaultHeroData);
+    const [loading, setLoading] = useState(true);
+    const [saving, setSaving] = useState(false);
+
+    useEffect(() => {
+        const loadMetadata = async () => {
+            try {
+                const data = await fetchSectionData('hero');
+                if (data) setHeroData(data);
+            } catch (err) {
+                console.error("Failed to load hero metadata:", err);
+            } finally {
+                setLoading(false);
+            }
+        };
+        loadMetadata();
+    }, []);
 
     const handleChange = (field, value) => {
         setHeroData(prev => ({ ...prev, [field]: value }));
     };
 
-    const handleSave = () => {
-        localStorage.setItem('cp_hero_data', JSON.stringify(heroData));
-        alert('Hero content saved successfully!');
+    const handleSave = async () => {
+        setSaving(true);
+        try {
+            await saveSectionData('hero', heroData);
+            alert('Hero content saved to Firebase successfully!');
+        } catch (err) {
+            console.error("Failed to save hero metadata:", err);
+            alert('Failed to save. Check permissions.');
+        } finally {
+            setSaving(false);
+        }
     };
 
     const handleReset = () => {
         setHeroData(defaultHeroData);
-        localStorage.removeItem('cp_hero_data');
     };
 
     return (
@@ -35,8 +55,11 @@ const HeroPanel = () => {
                     Edit the main landing section of your website. Changes will be reflected on the home page.
                 </p>
                 <div style={{ display: 'flex', gap: '1rem' }}>
+                    {loading && <span style={{ color: 'var(--gold)' }}>Loading...</span>}
                     <button className="admin-btn admin-btn-ghost" onClick={handleReset}>Reset</button>
-                    <button className="admin-btn admin-btn-primary" onClick={handleSave}>Save Changes</button>
+                    <button className="admin-btn admin-btn-primary" onClick={handleSave} disabled={saving || loading}>
+                        {saving ? 'Saving...' : 'Save Changes'}
+                    </button>
                 </div>
             </div>
 

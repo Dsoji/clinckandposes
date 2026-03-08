@@ -1,10 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { fetchSectionData } from '../services/portfolioService';
 import './About.css';
 import aboutLens from '../assets/about_lens.png';
 
 const About = () => {
     const sectionRef = useRef(null);
     const [scrollProgress, setScrollProgress] = useState(0);
+    const [settings, setSettings] = useState({
+        aboutVisionTitle: 'OUR VISION',
+        aboutNarrativeLead: 'We believe that every moment is a story waiting to be told, and we specialize in transforming these stories into captivating visual narratives.',
+        aboutNarrativeBody: "Our team, led by Graphic Smith, is dedicated to capturing the essence of each moment. We don't just take pictures; we create visual experiences that resonate.",
+    });
 
     useEffect(() => {
         const handleScroll = () => {
@@ -17,6 +23,18 @@ const About = () => {
 
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    useEffect(() => {
+        const loadSettings = async () => {
+            try {
+                const data = await fetchSectionData('settings');
+                if (data) setSettings(data);
+            } catch (err) {
+                console.error("Failed to load settings:", err);
+            }
+        };
+        loadSettings();
     }, []);
 
     return (
@@ -32,20 +50,21 @@ const About = () => {
 
                 <div className="about-title-cell">
                     <h2 className="about-massive-title" style={{ transform: `translateX(${(scrollProgress - 0.5) * 30}px)` }}>
-                        OUR <br />
-                        <span className="shifted">VISION</span>
+                        {settings.aboutVisionTitle.split(' ').map((word, i, arr) => (
+                            <React.Fragment key={i}>
+                                {i === arr.length - 1 ? <span className="shifted">{word}</span> : <>{word} <br /></>}
+                            </React.Fragment>
+                        ))}
                     </h2>
                 </div>
 
                 <div className="about-narrative-cell">
                     <div className="about-narrative">
-                        <p className="narrative-lead">
-                            We believe that every moment is a story waiting to be told, and we specialize in
-                            transforming these stories into captivating visual narratives.
+                        <p className="narrative-lead" style={{ whiteSpace: 'pre-line' }}>
+                            {settings.aboutNarrativeLead}
                         </p>
-                        <p className="narrative-body">
-                            Our team, led by Graphic Smith, is dedicated to capturing the essence of each moment.
-                            We don't just take pictures; we create visual experiences that resonate.
+                        <p className="narrative-body" style={{ whiteSpace: 'pre-line' }}>
+                            {settings.aboutNarrativeBody}
                         </p>
 
                     </div>

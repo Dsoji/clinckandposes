@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { fetchSectionData, saveSectionData } from '../../services/portfolioService';
 
 const defaultReviews = [
     { id: 1, client: 'Sarah & David', category: 'WEDDING', quote: "CLICK & POSES didn't just take photos; they captured the soul of our wedding. Every frame feels like a piece of art.", image: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80' },
@@ -9,10 +10,23 @@ const defaultReviews = [
 ];
 
 const ReviewsPanel = () => {
-    const [reviews, setReviews] = useState(() => {
-        const saved = localStorage.getItem('cp_reviews_data');
-        return saved ? JSON.parse(saved) : defaultReviews;
-    });
+    const [reviews, setReviews] = useState(defaultReviews);
+    const [loading, setLoading] = useState(true);
+    const [saving, setSaving] = useState(false);
+
+    useEffect(() => {
+        const loadReviews = async () => {
+            try {
+                const data = await fetchSectionData('reviews');
+                if (data && Array.isArray(data)) setReviews(data);
+            } catch (err) {
+                console.error("Failed to load reviews:", err);
+            } finally {
+                setLoading(false);
+            }
+        };
+        loadReviews();
+    }, []);
     const [editingId, setEditingId] = useState(null);
     const [showAddForm, setShowAddForm] = useState(false);
     const [newReview, setNewReview] = useState({ client: '', category: '', quote: '', image: '' });
@@ -21,10 +35,18 @@ const ReviewsPanel = () => {
         setReviews(prev => prev.map(r => r.id === id ? { ...r, [field]: value } : r));
     };
 
-    const handleSave = () => {
-        localStorage.setItem('cp_reviews_data', JSON.stringify(reviews));
-        setEditingId(null);
-        alert('Reviews saved!');
+    const handleSave = async () => {
+        setSaving(true);
+        try {
+            await saveSectionData('reviews', reviews);
+            setEditingId(null);
+            alert('Reviews saved to Firebase!');
+        } catch (err) {
+            console.error("Failed to save reviews:", err);
+            alert('Failed to save. Check permissions.');
+        } finally {
+            setSaving(false);
+        }
     };
 
     const handleDelete = (id) => {
@@ -48,10 +70,13 @@ const ReviewsPanel = () => {
                     Manage client testimonials displayed on your website.
                 </p>
                 <div style={{ display: 'flex', gap: '1rem' }}>
+                    {loading && <span style={{ color: 'var(--gold)' }}>Loading...</span>}
                     <button className="admin-btn admin-btn-ghost" onClick={() => setShowAddForm(!showAddForm)}>
                         {showAddForm ? 'Cancel' : '+ Add Review'}
                     </button>
-                    <button className="admin-btn admin-btn-primary" onClick={handleSave}>Save All</button>
+                    <button className="admin-btn admin-btn-primary" onClick={handleSave} disabled={saving || loading}>
+                        {saving ? 'Saving...' : 'Save All'}
+                    </button>
                 </div>
             </div>
 

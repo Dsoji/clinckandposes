@@ -1,17 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { fetchSectionData } from '../services/portfolioService';
 import './Contact.css';
 
 import logo from '../assets/logo.png';
 
 const Contact = () => {
+    const [settings, setSettings] = useState({
+        contactHeader: 'CONTACT US',
+        contactBrandText: 'C L I C K S A N D P O S E S',
+        footerQuote: 'We create our happiness by capturing the most important moments in our lives',
+        footerCredit: 'DEVELOPED BY SOJKU',
+    });
+
+    useEffect(() => {
+        const loadSettings = async () => {
+            try {
+                const data = await fetchSectionData('settings');
+                if (data) setSettings(data);
+            } catch (err) {
+                console.error("Failed to load settings:", err);
+            }
+        };
+        loadSettings();
+    }, []);
+
     return (
         <section className="contact-studio" id="contact">
             <div className="contact-studio-container">
                 <div className="contact-visual-side">
-                    <h2 className="studio-contact-header">CONTACT US</h2>
+                    <h2 className="studio-contact-header">{settings.contactHeader}</h2>
                     <div className="studio-logo-circle">
                         <img src={logo} alt="CLICK & POSES" className="studio-circle-logo-img" />
-                        <div className="studio-brand-name">C L I C K S A N D P O S E S</div>
+                        <div className="studio-brand-name">{settings.contactBrandText}</div>
                     </div>
                 </div>
 
@@ -35,8 +55,8 @@ const Contact = () => {
             </div>
 
             <div className="studio-footer-note">
-                <p>We create our happiness by capturing the most important moments in our lives</p>
-                <div className="powered-by">DEVELOPED BY SOJKU</div>
+                <p style={{ whiteSpace: 'pre-line' }}>{settings.footerQuote}</p>
+                <div className="powered-by">{settings.footerCredit}</div>
             </div>
         </section>
     );

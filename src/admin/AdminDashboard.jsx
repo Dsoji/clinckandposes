@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { signOut } from 'firebase/auth';
+import { auth } from '../firebase';
 import './AdminDashboard.css';
 import DashboardPanel from './panels/DashboardPanel';
 import HeroPanel from './panels/HeroPanel';
@@ -14,7 +16,7 @@ const navItems = [
     { id: 'settings', label: 'Settings', icon: '⚙' },
 ];
 
-const AdminDashboard = () => {
+const AdminDashboard = ({ user }) => {
     const [activePanel, setActivePanel] = useState('dashboard');
 
     const renderPanel = () => {
@@ -55,6 +57,12 @@ const AdminDashboard = () => {
                     <a href="/" className="back-to-site-link">
                         ← Back to Site
                     </a>
+                    <button
+                        className="admin-signout-sidebar-btn"
+                        onClick={() => signOut(auth)}
+                    >
+                        Sign Out
+                    </button>
                 </div>
             </aside>
 
@@ -64,7 +72,13 @@ const AdminDashboard = () => {
                         {navItems.find(n => n.id === activePanel)?.label || 'Dashboard'}
                     </h1>
                     <div className="admin-topbar-right">
-                        <span className="admin-user">Admin</span>
+                        <span className="admin-user">{user?.email || 'Admin'}</span>
+                        <button
+                            className="admin-signout-btn"
+                            onClick={() => signOut(auth)}
+                        >
+                            Sign Out
+                        </button>
                     </div>
                 </header>
 

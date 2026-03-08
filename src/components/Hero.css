@@ -174,15 +174,15 @@
 }
 
 .title-row.accent {
-    font-family: var(--font-serif);
-    padding-left: 0;
+    font-family: var(--font-sans);
     color: var(--color-white);
     opacity: 0.8;
-    font-style: italic;
-    font-size: 4.5vw;
-    font-weight: 400;
-    letter-spacing: 0.02em;
-    margin-top: -0.2rem;
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: 0.4em;
+    margin-top: 1.5rem;
+    text-transform: uppercase;
+    font-style: normal;
 }
 
 .hero-editorial-footer {
@@ -271,7 +271,8 @@
     }
 
     .title-row.accent {
-        font-size: 8vw;
+        font-size: 1rem;
+        letter-spacing: 3px;
     }
 
     .hero-editorial-footer {
@@ -310,7 +311,8 @@
     }
 
     .title-row.accent {
-        font-size: 7.5vw;
+        font-size: 0.9rem;
+        letter-spacing: 2px;
     }
 
     .hero-short-dec {

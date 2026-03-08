@@ -1,25 +1,51 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PortfolioSection from './PortfolioSection';
-import photobooth2 from '../assets/photobooth2.png';
-import photobooth1 from '../assets/photobooth1.jpg';
+import { fetchPortfolioData } from '../services/portfolioService';
 
 const PhotoBooth = () => {
-    const images = [
-        photobooth1,
-        photobooth2
-    ];
+    const [section, setSection] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const loadData = async () => {
+            try {
+                const data = await fetchPortfolioData();
+                if (data) {
+                    const pbSection = data.find(s => s.id === 'photobooth');
+                    if (pbSection) {
+                        setSection(pbSection);
+                    }
+                }
+            } catch (err) {
+                console.error("Failed to load photobooth section", err);
+            } finally {
+                setLoading(false);
+            }
+        };
+        loadData();
+    }, []);
+
+    if (loading) {
+        return (
+            <div style={{ padding: '5rem 0', textAlign: 'center', color: '#d4af37' }}>
+                Loading PhotoBooth...
+            </div>
+        );
+    }
+
+    if (!section) return null; // Hide completely if there's no data
 
     return (
         <PortfolioSection
-            id="photobooth"
-            index="06 // RENTAL"
-            title="PHOTOBOOTH RENTAL"
-            subtitle="The Ultimate Party Essential"
-            description="Elevate your events with our premium photobooth experience. From unlimited high-quality prints to instant social sharing and custom backdrops, we provide the perfect mix of fun and professional photography."
-            mainImage={photobooth2}
-            galleryImages={images}
-            bookingUrl="https://clicksandposes01.pixieset.com/booking/photobooth-rental/preview"
-            theme="noir-dark"
+            id={section.id}
+            index={section.index}
+            title={section.title}
+            subtitle={section.subtitle}
+            description={section.description}
+            mainImage={section.mainImage}
+            galleryImages={section.galleryImages}
+            bookingUrl={section.bookingUrl}
+            theme={section.theme}
             showDivider={true}
         />
     );
