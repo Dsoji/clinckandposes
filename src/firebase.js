@@ -14,6 +14,16 @@ const firebaseConfig = {
     measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
+// Safety check for environment variables
+const missingKeys = Object.entries(firebaseConfig)
+    .filter(([key, value]) => !value && key !== 'measurementId') // measurementId is often optional
+    .map(([key]) => key);
+
+if (missingKeys.length > 0) {
+    console.error("CRITICAL: Missing Firebase environment variables:", missingKeys.join(", "));
+    console.error("The app may not function correctly. Ensure these are set in your .env or Vercel project settings.");
+}
+
 const app = initializeApp(firebaseConfig);
 
 export const analytics = getAnalytics(app);
