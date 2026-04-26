@@ -1,7 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import { onAuthStateChanged, signOut } from 'firebase/auth'
-import { auth } from './firebase'
+import { supabase, ADMIN_EMAIL } from './supabase'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -31,10 +30,20 @@ function ProtectedAdmin() {
   const [user, setUser] = useState(undefined)
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser)
+    let mounted = true
+
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (mounted) setUser(session?.user ?? null)
     })
-    return () => unsubscribe()
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (mounted) setUser(session?.user ?? null)
+    })
+
+    return () => {
+      mounted = false
+      subscription.unsubscribe()
+    }
   }, [])
 
   if (user === undefined) {
@@ -54,10 +63,9 @@ function ProtectedAdmin() {
     )
   }
 
-  if (!user || user.email !== 'snow@mailinator.com') {
-    // If a different user is logged in somehow, sign them out
-    if (user && user.email !== 'snow@mailinator.com') {
-      signOut(auth);
+  if (!user || user.email !== ADMIN_EMAIL) {
+    if (user && user.email !== ADMIN_EMAIL) {
+      supabase.auth.signOut()
     }
     return <AdminLogin />
   }

@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../firebase';
+import { supabase, ADMIN_EMAIL } from '../supabase';
 import './AdminLogin.css';
 
 const AdminLogin = () => {
-    const [email, setEmail] = useState('snow@mailinator.com');
-    const [password, setPassword] = useState('test123');
+    const [email, setEmail] = useState(ADMIN_EMAIL);
+    const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
@@ -14,19 +13,12 @@ const AdminLogin = () => {
         setError('');
         setLoading(true);
         try {
-            await signInWithEmailAndPassword(auth, email, password);
-        } catch (err) {
-            // If the user tries testing the default email and it's not created yet, automatically create it
-            if (email === 'snow@mailinator.com' && (err.code === 'auth/user-not-found' || err.code === 'auth/invalid-credential')) {
-                try {
-                    await createUserWithEmailAndPassword(auth, email, password);
-                    return; // Successfully created and signed in
-                } catch (createErr) {
-                    setError('Failed to create default user. Please try again.');
-                }
-            } else {
-                setError('Invalid email or password. Please try again.');
+            const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
+            if (signInError) {
+                setError(signInError.message || 'Invalid email or password. Please try again.');
             }
+        } catch (err) {
+            setError('Sign-in failed. Please try again.');
         } finally {
             setLoading(false);
         }

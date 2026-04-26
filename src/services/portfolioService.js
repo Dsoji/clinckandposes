@@ -1,86 +1,97 @@
-import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { db, storage } from '../firebase';
+import { supabase, SUPABASE_BUCKET } from '../supabase';
 
-const PORTFOLIO_DOC_PATH = 'site/portfolio';
+const PORTFOLIO_SECTION_ID = 'portfolio';
+
+const sanitizeFileName = (name) => name.replace(/[^a-zA-Z0-9._-]/g, '_');
 
 /**
- * Fetches the entire portfolio array from Firestore.
+ * Fetches the entire portfolio array from Supabase site_content table.
  */
 export const fetchPortfolioData = async () => {
-    try {
-        const docRef = doc(db, PORTFOLIO_DOC_PATH);
-        const docSnap = await getDoc(docRef);
+    const { data, error } = await supabase
+        .from('site_content')
+        .select('content')
+        .eq('id', PORTFOLIO_SECTION_ID)
+        .maybeSingle();
 
-        if (docSnap.exists()) {
-            return docSnap.data().sections || [];
-        } else {
-            return null; // Signals that we should use the default sections
-        }
-    } catch (error) {
+    if (error) {
         console.error("Error fetching portfolio data:", error);
         throw error;
     }
+    if (!data) return null; // signals caller to use defaults
+    return data.content?.sections || [];
 };
 
 /**
- * Fetches data for a specific section (hero, reviews, photobooth)
+ * Fetches data for a specific section (hero, reviews, photobooth, settings).
  */
 export const fetchSectionData = async (sectionId) => {
-    try {
-        const docRef = doc(db, `site/${sectionId}`);
-        const docSnap = await getDoc(docRef);
-        return docSnap.exists() ? docSnap.data().content : null;
-    } catch (error) {
+    const { data, error } = await supabase
+        .from('site_content')
+        .select('content')
+        .eq('id', sectionId)
+        .maybeSingle();
+
+    if (error) {
         console.error(`Error fetching ${sectionId} data:`, error);
         throw error;
     }
+    return data?.content || null;
 };
 
 /**
- * Overwrites the entire portfolio array in Firestore.
+ * Overwrites the portfolio sections array in Supabase.
  */
 export const savePortfolioData = async (sectionsArray) => {
-    try {
-        const docRef = doc(db, PORTFOLIO_DOC_PATH);
-        await setDoc(docRef, { sections: sectionsArray }, { merge: true });
-    } catch (error) {
+    const { error } = await supabase
+        .from('site_content')
+        .upsert({ id: PORTFOLIO_SECTION_ID, content: { sections: sectionsArray } }, { onConflict: 'id' });
+
+    if (error) {
         console.error("Error saving portfolio data:", error);
         throw error;
     }
 };
 
 /**
- * Saves data for a specific section (hero, reviews, photobooth)
+ * Saves data for a specific section.
  */
 export const saveSectionData = async (sectionId, data) => {
-    try {
-        const docRef = doc(db, `site/${sectionId}`);
-        await setDoc(docRef, { content: data }, { merge: true });
-    } catch (error) {
+    const { error } = await supabase
+        .from('site_content')
+        .upsert({ id: sectionId, content: data }, { onConflict: 'id' });
+
+    if (error) {
         console.error(`Error saving ${sectionId} data:`, error);
         throw error;
     }
 };
 
 /**
- * Uploads a physical File to Firebase Storage and returns its download URL.
- * Designed to handle both main images and gallery images.
+ * Uploads a File to Supabase Storage and returns its public URL.
  */
 export const uploadImage = async (file, pathPrefix = 'portfolio') => {
-    try {
-        // Create a unique file name
-        const uniqueFileName = `${Date.now()}_${file.name}`;
-        const storageRef = ref(storage, `${pathPrefix}/${uniqueFileName}`);
+    const uniqueFileName = `${Date.now()}_${sanitizeFileName(file.name)}`;
+    const objectPath = `${pathPrefix}/${uniqueFileName}`;
 
-        // Upload the file
-        const snapshot = await uploadBytes(storageRef, file);
+    const { error: uploadError } = await supabase
+        .storage
+        .from(SUPABASE_BUCKET)
+        .upload(objectPath, file, {
+            cacheControl: '3600',
+            upsert: false,
+            contentType: file.type || undefined,
+        });
 
-        // Get the download URL
-        const downloadURL = await getDownloadURL(snapshot.ref);
-        return downloadURL;
-    } catch (error) {
-        console.error("Error uploading image:", error);
-        throw error;
+    if (uploadError) {
+        console.error("Error uploading image:", uploadError);
+        throw uploadError;
     }
+
+    const { data } = supabase
+        .storage
+        .from(SUPABASE_BUCKET)
+        .getPublicUrl(objectPath);
+
+    return data.publicUrl;
 };

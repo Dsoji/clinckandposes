@@ -40,7 +40,7 @@ const ReviewsPanel = () => {
         try {
             await saveSectionData('reviews', reviews);
             setEditingId(null);
-            alert('Reviews saved to Firebase!');
+            alert('Reviews saved!');
         } catch (err) {
             console.error("Failed to save reviews:", err);
             alert('Failed to save. Check permissions.');

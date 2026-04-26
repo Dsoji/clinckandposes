@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { signOut } from 'firebase/auth';
-import { auth } from '../firebase';
+import { supabase } from '../supabase';
 import './AdminDashboard.css';
 import DashboardPanel from './panels/DashboardPanel';
 import HeroPanel from './panels/HeroPanel';
@@ -59,7 +58,7 @@ const AdminDashboard = ({ user }) => {
                     </a>
                     <button
                         className="admin-signout-sidebar-btn"
-                        onClick={() => signOut(auth)}
+                        onClick={() => supabase.auth.signOut()}
                     >
                         Sign Out
                     </button>
@@ -75,7 +74,7 @@ const AdminDashboard = ({ user }) => {
                         <span className="admin-user">{user?.email || 'Admin'}</span>
                         <button
                             className="admin-signout-btn"
-                            onClick={() => signOut(auth)}
+                            onClick={() => supabase.auth.signOut()}
                         >
                             Sign Out
                         </button>

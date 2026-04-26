@@ -89,7 +89,7 @@ const PortfolioPanel = () => {
                 setSections(data || defaultSections);
             } catch (err) {
                 console.error(err);
-                alert("Failed to load portfolio data from Firebase");
+                alert("Failed to load portfolio data");
                 setSections(defaultSections);
             } finally {
                 setLoading(false);
@@ -155,9 +155,7 @@ const PortfolioPanel = () => {
             // Remove the section from local state
             setSections(prev => prev.filter(s => s.id !== sectionId));
 
-            // Note: To completely save this deletion to Firebase, 
-            // the user still needs to click the main "Save All" button.
-            // We'll trust the existing save flow to push the new array.
+            // Click "Save All" to persist the deletion.
         }
     };
 
@@ -183,9 +181,9 @@ const PortfolioPanel = () => {
         try {
             await savePortfolioData(sections);
             setEditingId(null);
-            alert('Portfolio sections saved to Firebase!');
+            alert('Portfolio sections saved!');
         } catch (err) {
-            alert('Failed to save to Firebase.');
+            alert('Failed to save.');
         } finally {
             setSaving(false);
         }

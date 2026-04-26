@@ -5,13 +5,17 @@ import logo from '../assets/logo.png';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [settings, setSettings] = useState({ brandName: 'CLICK & POSES' });
+  const [settings, setSettings] = useState({
+    brandName: 'CLICK & POSES',
+    brandFontFamily: "'EB Garamond', serif",
+    brandFontSize: '1.8rem',
+  });
 
   useEffect(() => {
     const loadSettings = async () => {
       try {
         const data = await fetchSectionData('settings');
-        if (data && data.brandName) setSettings(data);
+        if (data) setSettings(prev => ({ ...prev, ...data }));
       } catch (err) {
         console.error("Failed to load header settings:", err);
       }
@@ -33,7 +37,15 @@ const Header = () => {
         <div className="header-left">
           <a href="#home" className="logo-link">
             <img src={logo} alt="CLICK & POSES Logo" className="header-logo-img" />
-            <span className="logo-text">{settings.brandName}</span>
+            <span
+              className="logo-text"
+              style={{
+                fontFamily: settings.brandFontFamily,
+                fontSize: settings.brandFontSize,
+              }}
+            >
+              {settings.brandName}
+            </span>
           </a>
         </div>
 
