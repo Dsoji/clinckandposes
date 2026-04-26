@@ -75,7 +75,7 @@
 
 .portfolio-title-large {
     font-family: var(--font-serif);
-    font-size: 6vw;
+    font-size: clamp(2rem, 6vw, 5rem);
     font-weight: 400;
     letter-spacing: -2px;
     line-height: 1;
@@ -85,7 +85,7 @@
 
 .portfolio-subtitle {
     font-family: var(--font-serif);
-    font-size: 1.8vw;
+    font-size: clamp(1rem, 1.8vw, 1.5rem);
     font-style: italic;
     font-weight: 400;
     color: rgba(255, 255, 255, 0.7);
@@ -268,19 +268,55 @@
         font-size: 1rem;
         max-width: 100%;
     }
-}
 
-@media (max-width: 480px) {
-    .portfolio-title-large {
-        font-size: 15vw;
+    /* Make the marquee a native horizontal scroller on touch devices */
+    .floating-slideshow-wrapper {
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        transform: none !important; /* drop the parallax shift so touch scroll feels natural */
+        padding: 30px 1.5rem;
     }
 
-    .floating-card {
-        width: 220px;
-        height: 300px;
+    .floating-slideshow-wrapper::-webkit-scrollbar {
+        display: none;
     }
 
     .slideshow-track {
-        gap: 2rem;
+        animation: none;
+        gap: 1.5rem;
+        width: max-content;
+    }
+
+    .floating-card {
+        scroll-snap-align: center;
+    }
+
+    .floating-card:hover {
+        transform: none;
+        box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8);
+        border-color: #ffffff;
+    }
+}
+
+@media (max-width: 480px) {
+    .portfolio-content {
+        padding: 0 1.25rem;
+    }
+
+    .portfolio-title-large {
+        font-size: clamp(2rem, 11vw, 3.5rem);
+    }
+
+    .floating-card {
+        width: 180px;
+        height: 240px;
+        border-width: 4px;
+    }
+
+    .slideshow-track {
+        gap: 1.5rem;
     }
 }

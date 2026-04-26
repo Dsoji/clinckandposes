@@ -3,8 +3,17 @@ import { fetchSectionData } from '../services/portfolioService';
 import './Header.css';
 import logo from '../assets/logo.png';
 
+const navItems = [
+  { href: '#portfolio', label: 'Portfolio' },
+  { href: '#photobooth', label: 'Photobooth' },
+  { href: '#reviews', label: 'Reviews' },
+  { href: '#about', label: 'About' },
+  { href: '#contact', label: 'Contact Us' },
+];
+
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [settings, setSettings] = useState({
     brandName: 'CLICK & POSES',
     brandFontFamily: "'EB Garamond', serif",
@@ -31,11 +40,18 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [menuOpen]);
+
+  const closeMenu = () => setMenuOpen(false);
+
   return (
     <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
       <div className="header-container">
         <div className="header-left">
-          <a href="#home" className="logo-link">
+          <a href="#home" className="logo-link" onClick={closeMenu}>
             <img src={logo} alt="CLICK & POSES Logo" className="header-logo-img" />
             <span
               className="logo-text"
@@ -51,11 +67,9 @@ const Header = () => {
 
         <nav className="header-nav">
           <ul className="nav-links">
-            <li><a href="#portfolio">Portfolio</a></li>
-            <li><a href="#photobooth">Photobooth</a></li>
-            <li><a href="#reviews">Reviews</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact Us</a></li>
+            {navItems.map(item => (
+              <li key={item.href}><a href={item.href}>{item.label}</a></li>
+            ))}
           </ul>
         </nav>
 
@@ -64,7 +78,46 @@ const Header = () => {
             <button className="book-btn">BOOK A SERVICE</button>
           </a>
         </div>
+
+        <button
+          type="button"
+          className={`hamburger-btn ${menuOpen ? 'open' : ''}`}
+          onClick={() => setMenuOpen(o => !o)}
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={menuOpen}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
+
+      <div
+        className={`mobile-menu-backdrop ${menuOpen ? 'visible' : ''}`}
+        onClick={closeMenu}
+        aria-hidden="true"
+      />
+
+      <aside className={`mobile-menu ${menuOpen ? 'open' : ''}`} aria-hidden={!menuOpen}>
+        <nav>
+          <ul className="mobile-nav-links">
+            {navItems.map(item => (
+              <li key={item.href}>
+                <a href={item.href} onClick={closeMenu}>{item.label}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <a
+          href="https://clicksandposes01.pixieset.com/booking"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mobile-book-btn"
+          onClick={closeMenu}
+        >
+          BOOK A SERVICE
+        </a>
+      </aside>
     </header>
   );
 };

@@ -23,7 +23,7 @@
 
 .about-header {
     font-family: var(--font-serif);
-    font-size: 8vw;
+    font-size: clamp(2.5rem, 8vw, 7rem);
     letter-spacing: 1.5rem;
     color: var(--color-gold);
     text-transform: uppercase;
@@ -68,7 +68,7 @@
 
 .about-massive-title {
     font-family: var(--font-serif);
-    font-size: 7vw;
+    font-size: clamp(2.25rem, 7vw, 6rem);
     line-height: 0.9;
     letter-spacing: -4px;
     margin: 0;
@@ -201,6 +201,10 @@
 }
 
 @media (max-width: 1024px) {
+    .about-intro {
+        padding: 0 2rem;
+    }
+
     .about-pulp-row {
         flex-direction: column;
         align-items: center;
@@ -270,6 +274,11 @@
 }
 
 @media (max-width: 480px) {
+    .about-intro,
+    .about-pulp-row {
+        padding: 0 1.25rem;
+    }
+
     .about-header {
         font-size: 12vw;
         letter-spacing: 0.5rem;

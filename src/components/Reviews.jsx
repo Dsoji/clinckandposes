@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { fetchSectionData } from '../services/portfolioService';
+import useSwipe from '../hooks/useSwipe';
+import { responsiveImage } from '../utils/responsiveImage';
 import './Reviews.css';
 
 const Reviews = () => {
@@ -21,13 +23,23 @@ const Reviews = () => {
     }, []);
 
     useEffect(() => {
+        if (reviewsData.length <= 1) return;
         const interval = setInterval(() => {
-            if (reviewsData.length > 0) {
-                setActiveIndex((prev) => (prev + 1) % reviewsData.length);
-            }
+            setActiveIndex((prev) => (prev + 1) % reviewsData.length);
         }, 6000);
         return () => clearInterval(interval);
-    }, []);
+    }, [reviewsData.length]);
+
+    const goTo = (i) => {
+        if (reviewsData.length === 0) return;
+        const len = reviewsData.length;
+        setActiveIndex(((i % len) + len) % len);
+    };
+
+    const swipeHandlers = useSwipe({
+        onSwipeLeft: () => goTo(activeIndex + 1),
+        onSwipeRight: () => goTo(activeIndex - 1),
+    });
 
     return (
         <section className="reviews-section" id="reviews">
@@ -42,7 +54,7 @@ const Reviews = () => {
                     <h2 className="reviews-title-mini">VOICES OF EXPERIENCE</h2>
                 </div>
 
-                <div className="reviews-slideshow">
+                <div className="reviews-slideshow" {...swipeHandlers}>
                     {reviewsData.length === 0 && <div style={{ color: 'var(--gold)' }}>Loading reviews...</div>}
                     {reviewsData.map((review, index) => (
                         <div
@@ -51,7 +63,7 @@ const Reviews = () => {
                         >
                             <div className="review-image-wrapper">
                                 <img
-                                    src={review.image && review.image.includes('unsplash') ? `${review.image}&w=800` : review.image || ''}
+                                    {...responsiveImage(review.image || '', '(max-width: 1024px) 100vw, 50vw')}
                                     alt={review.client}
                                     className="review-image"
                                     loading="lazy"
@@ -71,7 +83,8 @@ const Reviews = () => {
                                             <button
                                                 key={i}
                                                 className={`dot ${i === activeIndex ? 'active' : ''}`}
-                                                onClick={() => setActiveIndex(i)}
+                                                onClick={() => goTo(i)}
+                                                aria-label={`Show review ${i + 1}`}
                                             ></button>
                                         ))}
                                     </div>

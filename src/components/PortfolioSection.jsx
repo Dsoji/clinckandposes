@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { responsiveImage } from '../utils/responsiveImage';
 import './PortfolioSection.css';
 
 const PortfolioSection = ({ id, index, title, subtitle, description, mainImage, galleryImages, theme, bookingUrl, showDivider = true }) => {
@@ -25,7 +26,7 @@ const PortfolioSection = ({ id, index, title, subtitle, description, mainImage, 
             <div className="portfolio-bg">
                 <div className="mask-wrapper" style={{ clipPath: `inset(${(1 - scrollProgress) * 20}% 0% 0% 0%)` }}>
                     <img
-                        src={typeof mainImage === 'string' && mainImage.includes('unsplash') ? `${mainImage}&w=1600` : mainImage}
+                        {...responsiveImage(mainImage, '100vw')}
                         alt={title}
                         className="parallax-bg"
                         loading="lazy"
@@ -64,7 +65,7 @@ const PortfolioSection = ({ id, index, title, subtitle, description, mainImage, 
                             {galleryImages.concat(galleryImages).map((img, i) => (
                                 <div key={i} className="floating-card">
                                     <img
-                                        src={typeof img === 'string' && img.includes('unsplash') ? `${img}&w=600` : img}
+                                        {...responsiveImage(img, '(max-width: 480px) 200px, (max-width: 768px) 280px, 500px')}
                                         alt={`${title} Detail`}
                                         loading="lazy"
                                     />

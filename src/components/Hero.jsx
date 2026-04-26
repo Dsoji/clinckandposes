@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { fetchSectionData } from '../services/portfolioService';
+import useSwipe from '../hooks/useSwipe';
 import './Hero.css';
 import homeBackground from '../assets/home_background.jpg';
 
@@ -66,9 +67,14 @@ const Hero = () => {
     const prevSlide = () => goToSlide(activeSlide - 1);
     const nextSlide = () => goToSlide(activeSlide + 1);
 
+    const swipeHandlers = useSwipe({
+        onSwipeLeft: nextSlide,
+        onSwipeRight: prevSlide,
+    });
+
     return (
         <section className="hero-exhibition" ref={sectionRef} id="home">
-            <div className="hero-bg-wrapper">
+            <div className="hero-bg-wrapper" {...swipeHandlers}>
                 <div className="hero-mask" style={{ clipPath: `inset(0% 0% ${scrollProgress * 20}% 0%)` }}>
                     <div className="hero-slideshow">
                         {slides.map((slide, i) => (

@@ -110,22 +110,24 @@
 }
 
 .hero-slide-dot {
+    box-sizing: content-box;
     width: 28px;
     height: 2px;
+    padding-block: 14px;
     background: rgba(255, 255, 255, 0.25);
+    background-clip: content-box;
     border: none;
-    padding: 0;
     cursor: pointer;
-    transition: background 0.4s ease, width 0.4s ease;
+    transition: width 0.4s ease, background-color 0.4s ease;
 }
 
 .hero-slide-dot.active {
-    background: var(--color-gold);
+    background-color: var(--color-gold);
     width: 44px;
 }
 
 .hero-slide-dot:hover {
-    background: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.6);
 }
 
 .hero-overlay-noir {
